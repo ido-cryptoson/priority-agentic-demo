@@ -23,9 +23,9 @@ export function Dashboard() {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
+    <div className="h-screen flex flex-col bg-[#F8FAFC] overflow-hidden">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white border-b border-gray-200 shrink-0">
         <div className="w-full px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -63,7 +63,7 @@ export function Dashboard() {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="bg-white border-b border-gray-200">
+      <nav className="bg-white border-b border-gray-200 shrink-0">
         <div className="w-full px-6">
           <div className="flex gap-1">
             {tabs.map((tab) => (
@@ -93,12 +93,14 @@ export function Dashboard() {
       </nav>
 
       {/* Metrics Bar */}
-      <MetricsBar metrics={dashboardMetrics} />
+      <div className="shrink-0">
+        <MetricsBar metrics={dashboardMetrics} />
+      </div>
 
       {/* Main Content */}
-      <main className="w-full px-6 py-4 flex-1">
+      <main className="w-full px-6 py-4 flex-1 overflow-auto">
         {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="lg:col-span-1">
               <NLQChat compact />
             </div>
@@ -114,7 +116,7 @@ export function Dashboard() {
       </main>
 
       {/* Footer - Minimal */}
-      <footer className="bg-white border-t border-gray-200 py-2 px-6">
+      <footer className="bg-white border-t border-gray-200 py-1.5 px-6 shrink-0">
         <div className="flex items-center justify-between text-xs text-gray-400">
           <span>Priority Software • aiERP Platform</span>
           <span>Blackstone Demo</span>
