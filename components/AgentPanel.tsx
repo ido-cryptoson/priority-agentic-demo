@@ -62,7 +62,7 @@ export function AgentPanel({ compact = false }: AgentPanelProps) {
   };
 
   return (
-    <div className={`bg-white rounded-xl border border-gray-200 flex flex-col shadow-sm ${compact ? 'h-[400px]' : 'h-auto'}`}>
+    <div className={`bg-white rounded-xl border border-gray-200 flex flex-col shadow-sm ${compact ? 'h-full' : 'h-auto'}`}>
       {/* Header */}
       <div className="p-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-2">

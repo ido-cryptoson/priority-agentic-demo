@@ -187,7 +187,7 @@ export function NLQChat({ compact = false }: NLQChatProps) {
   ];
 
   return (
-    <div className={`bg-white rounded-xl border border-gray-200 flex flex-col shadow-sm ${compact ? 'h-[400px]' : 'h-[600px]'}`}>
+    <div className={`bg-white rounded-xl border border-gray-200 flex flex-col shadow-sm ${compact ? 'h-full' : 'h-[600px]'}`}>
       {/* Header */}
       <div className="p-4 border-b border-gray-200 flex items-center gap-2">
         <div className="w-8 h-8 bg-[#3B37E6] rounded-lg flex items-center justify-center">
