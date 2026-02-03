@@ -70,6 +70,44 @@ export const productionOrders: ProductionOrder[] = [
 // THE CENTERPIECE - Agent actions for the demo
 export const agentActions: AgentAction[] = [
   {
+    id: 'a0',
+    agent_type: 'collections',
+    action_type: 'crm_campaign',
+    title: 'Abandoned Cart Recovery - 127 Carts Worth ₪89,400',
+    reasoning: `**Salesforce Commerce Cloud Sync Alert:**
+- 127 abandoned carts detected in last 24 hours
+- Total potential revenue: ₪89,400
+- Average cart value: ₪704
+
+**Top Abandoned Items:**
+| Product | Abandoned | Revenue at Risk |
+|---------|-----------|-----------------|
+| Bugaboo Interchange Jacket | 34 carts | ₪26,860 |
+| Newton Ridge Hiking Boots | 28 carts | ₪19,600 |
+| Tech Trail Fleece | 22 carts | ₪11,000 |
+
+**Customer Segments:**
+- New visitors: 45% (need trust-building)
+- Returning customers: 32% (likely price-sensitive)
+- Loyalty members: 23% (high conversion potential)
+
+**Recommended Action:**
+Trigger Salesforce Marketing Cloud campaign:
+- Loyalty members: 10% discount code + free shipping
+- Returning customers: Free shipping only
+- New visitors: Welcome offer + social proof
+
+**Projected Recovery:** 15-18% = ₪13,400-₪16,100`,
+    status: 'pending',
+    created_at: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+    payload: {
+      campaign_type: 'cart_recovery',
+      carts_targeted: 127,
+      total_value: 89400,
+      segments: ['loyalty', 'returning', 'new'],
+    }
+  },
+  {
     id: 'a1',
     agent_type: 'inventory',
     action_type: 'purchase_order',

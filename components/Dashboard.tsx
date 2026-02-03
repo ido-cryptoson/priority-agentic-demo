@@ -5,10 +5,11 @@ import { NLQChat } from './NLQChat';
 import { AgentPanel } from './AgentPanel';
 import { NetworkMap } from './NetworkMap';
 import { MetricsBar } from './MetricsBar';
+import { CRMPanel } from './CRMPanel';
 import { dashboardMetrics, companyInfo } from '@/lib/mockData';
-import { Bot, MessageSquare, Globe, LayoutDashboard } from 'lucide-react';
+import { Bot, MessageSquare, Globe, LayoutDashboard, Users } from 'lucide-react';
 
-type TabType = 'overview' | 'chat' | 'agents' | 'network';
+type TabType = 'overview' | 'chat' | 'agents' | 'crm' | 'network';
 
 export function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('overview');
@@ -17,6 +18,7 @@ export function Dashboard() {
     { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'chat', label: 'Ask AI', icon: MessageSquare },
     { id: 'agents', label: 'AI Agents', icon: Bot },
+    { id: 'crm', label: 'CRM', icon: Users },
     { id: 'network', label: 'Network Intel', icon: Globe },
   ] as const;
 
@@ -94,6 +96,7 @@ export function Dashboard() {
         )}
         {activeTab === 'chat' && <NLQChat />}
         {activeTab === 'agents' && <AgentPanel />}
+        {activeTab === 'crm' && <CRMPanel />}
         {activeTab === 'network' && <NetworkMap />}
       </main>
     </div>
