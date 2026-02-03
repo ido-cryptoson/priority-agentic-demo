@@ -6,7 +6,7 @@ import { networkAlerts } from '@/lib/mockData';
 import { NetworkAlert } from '@/lib/types';
 
 export function NetworkMap() {
-  const [activeAlerts, setActiveAlerts] = useState<NetworkAlert[]>(networkAlerts);
+  const [activeAlerts] = useState<NetworkAlert[]>(networkAlerts);
   const [pulsingNodes, setPulsingNodes] = useState<Set<number>>(new Set());
 
   // Simulate network activity with pulsing nodes
@@ -39,13 +39,13 @@ export function NetworkMap() {
   const getAlertColor = (type: string) => {
     switch (type) {
       case 'delay':
-        return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30';
+        return 'text-amber-600 bg-amber-50 border-amber-200';
       case 'disruption':
-        return 'text-red-400 bg-red-500/20 border-red-500/30';
+        return 'text-red-600 bg-red-50 border-red-200';
       case 'price_change':
-        return 'text-blue-400 bg-blue-500/20 border-blue-500/30';
+        return 'text-[#3B37E6] bg-[#F3F6FF] border-[#3B37E6]/30';
       default:
-        return 'text-gray-400 bg-gray-500/20 border-gray-500/30';
+        return 'text-gray-600 bg-gray-100 border-gray-200';
     }
   };
 
@@ -62,17 +62,17 @@ export function NetworkMap() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold flex items-center gap-2">
-            <Globe className="w-6 h-6 text-blue-400" />
+          <h2 className="text-xl font-semibold text-[#16213D] flex items-center gap-2">
+            <Globe className="w-6 h-6 text-[#3B37E6]" />
             Network Intelligence
           </h2>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-gray-500 text-sm mt-1">
             Real-time insights from 17,000+ Priority customers worldwide
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full flex items-center gap-1">
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          <span className="px-4 py-1.5 bg-emerald-50 text-emerald-600 text-sm font-medium rounded-full flex items-center gap-2">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
             Network Active
           </span>
         </div>
@@ -80,14 +80,14 @@ export function NetworkMap() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Network Visualization */}
-        <div className="lg:col-span-2 bg-gray-900/50 rounded-xl border border-gray-800 p-6">
-          <div className="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+          <div className="relative aspect-video bg-gradient-to-br from-[#F8FAFC] to-[#F3F6FF] rounded-xl overflow-hidden border border-gray-100">
             {/* Grid background */}
-            <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 opacity-30">
               <svg className="w-full h-full">
                 <defs>
                   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-gray-600" />
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" />
                   </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill="url(#grid)" />
@@ -107,7 +107,7 @@ export function NetworkMap() {
                         y1={`${node.y}%`}
                         x2={`${other.x}%`}
                         y2={`${other.y}%`}
-                        stroke="rgba(59, 130, 246, 0.2)"
+                        stroke="rgba(59, 55, 230, 0.15)"
                         strokeWidth="1"
                       />
                     );
@@ -121,33 +121,35 @@ export function NetworkMap() {
             {nodes.map((node) => (
               <div
                 key={node.id}
-                className={`absolute transform -translate-x-1/2 -translate-y-1/2 ${
-                  pulsingNodes.has(node.id) ? 'animate-ping' : ''
+                className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
+                  pulsingNodes.has(node.id) ? 'scale-150' : ''
                 }`}
                 style={{ left: `${node.x}%`, top: `${node.y}%` }}
               >
                 <div
-                  className={`rounded-full bg-blue-500 ${
+                  className={`rounded-full ${
+                    pulsingNodes.has(node.id) ? 'bg-emerald-500' : 'bg-[#3B37E6]'
+                  } ${
                     node.size === 'lg' ? 'w-4 h-4' : node.size === 'md' ? 'w-3 h-3' : 'w-2 h-2'
-                  } ${pulsingNodes.has(node.id) ? 'bg-green-400' : ''}`}
+                  }`}
                 />
               </div>
             ))}
 
             {/* Alert indicators */}
             <div className="absolute top-4 right-4 flex flex-col gap-2">
-              <div className="flex items-center gap-2 bg-gray-900/80 px-3 py-1.5 rounded-lg">
-                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                <span className="text-xs text-gray-300">17,423 Active</span>
+              <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
+                <span className="w-2 h-2 bg-[#3B37E6] rounded-full animate-pulse" />
+                <span className="text-xs text-[#16213D] font-medium">17,423 Active</span>
               </div>
-              <div className="flex items-center gap-2 bg-gray-900/80 px-3 py-1.5 rounded-lg">
-                <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
-                <span className="text-xs text-gray-300">3 Alerts</span>
+              <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
+                <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
+                <span className="text-xs text-[#16213D] font-medium">3 Alerts</span>
               </div>
             </div>
 
             {/* Priority logo watermark */}
-            <div className="absolute bottom-4 left-4 text-gray-600 text-xs">
+            <div className="absolute bottom-4 left-4 text-gray-400 text-xs font-medium">
               Priority Network • Real-time supply chain intelligence
             </div>
           </div>
@@ -160,21 +162,21 @@ export function NetworkMap() {
               { label: 'Supply Chains', value: '8,921', icon: Truck },
               { label: 'Alert Response', value: '<5min', icon: AlertTriangle },
             ].map((stat, i) => (
-              <div key={i} className="bg-gray-800/50 rounded-lg p-3">
-                <div className="flex items-center gap-2 text-gray-400 mb-1">
+              <div key={i} className="bg-[#F8FAFC] rounded-xl p-3 border border-gray-100">
+                <div className="flex items-center gap-2 text-gray-500 mb-1">
                   <stat.icon className="w-3 h-3" />
-                  <span className="text-xs">{stat.label}</span>
+                  <span className="text-xs font-medium">{stat.label}</span>
                 </div>
-                <span className="text-lg font-bold text-white">{stat.value}</span>
+                <span className="text-lg font-bold text-[#16213D]">{stat.value}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Alerts Panel */}
-        <div className="bg-gray-900/50 rounded-xl border border-gray-800 p-4">
-          <h3 className="font-semibold mb-4 flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-yellow-400" />
+        <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+          <h3 className="font-semibold text-[#16213D] mb-4 flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-500" />
             Network Alerts
           </h3>
           <div className="space-y-3">
@@ -183,21 +185,21 @@ export function NetworkMap() {
               return (
                 <div
                   key={alert.id}
-                  className={`p-4 rounded-lg border ${getAlertColor(alert.type)}`}
+                  className={`p-4 rounded-xl border ${getAlertColor(alert.type)}`}
                 >
                   <div className="flex items-start gap-3">
                     <Icon className="w-5 h-5 mt-0.5" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-medium uppercase">{alert.type.replace('_', ' ')}</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs font-semibold uppercase">{alert.type.replace('_', ' ')}</span>
+                        <span className="text-xs opacity-60">
                           {new Date(alert.timestamp).toLocaleTimeString()}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-200">{alert.message}</p>
+                      <p className="text-sm">{alert.message}</p>
                       <div className="mt-2 flex items-center gap-2">
-                        <span className="text-xs text-gray-400">Source: {alert.source}</span>
-                        <span className="text-xs px-2 py-0.5 bg-gray-800 rounded-full">
+                        <span className="text-xs opacity-70">Source: {alert.source}</span>
+                        <span className="text-xs px-2 py-0.5 bg-white/50 rounded-full font-medium">
                           {alert.affected_companies} companies affected
                         </span>
                       </div>
@@ -209,9 +211,9 @@ export function NetworkMap() {
           </div>
 
           {/* Network Effect Explanation */}
-          <div className="mt-6 p-4 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg border border-blue-500/20">
-            <h4 className="font-medium text-blue-400 mb-2">The Hive Mind Advantage</h4>
-            <p className="text-sm text-gray-300">
+          <div className="mt-6 p-4 bg-gradient-to-br from-[#F3F6FF] to-white rounded-xl border border-[#3B37E6]/20">
+            <h4 className="font-semibold text-[#3B37E6] mb-2">The Hive Mind Advantage</h4>
+            <p className="text-sm text-gray-600">
               When one Priority customer experiences a supply chain issue, the entire network learns.
               This collective intelligence is impossible for competitors to replicate.
             </p>

@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, AlertTriangle, TrendingDown, Package, Loader2 } from 'lucide-react';
+import { Send, Sparkles, AlertTriangle, Loader2 } from 'lucide-react';
 import { ChatMessage } from '@/lib/types';
-import { getCriticalInventory, getHighRiskCustomers, getTotalARAtRisk, dashboardMetrics, productionOrders } from '@/lib/mockData';
 
 interface NLQChatProps {
   compact?: boolean;
@@ -130,7 +129,7 @@ function getResponse(query: string): { content: string; data?: Record<string, un
   if (q.includes('cash') || q.includes('pay') || q.includes('ar') || q.includes('receivable')) {
     return demoResponses['cash'];
   }
-  if (q.includes('production') || q.includes('efficiency') || q.includes('shift') || q.includes('manufacturing')) {
+  if (q.includes('production') || q.includes('efficiency') || q.includes('shift') || q.includes('store') || q.includes('performance')) {
     return demoResponses['production'];
   }
   return demoResponses['default'];
@@ -188,26 +187,32 @@ export function NLQChat({ compact = false }: NLQChatProps) {
   ];
 
   return (
-    <div className={`bg-gray-900/50 rounded-xl border border-gray-800 flex flex-col ${compact ? 'h-[400px]' : 'h-[600px]'}`}>
+    <div className={`bg-white rounded-xl border border-gray-200 flex flex-col shadow-sm ${compact ? 'h-[400px]' : 'h-[600px]'}`}>
       {/* Header */}
-      <div className="p-4 border-b border-gray-800 flex items-center gap-2">
-        <Sparkles className="w-5 h-5 text-purple-400" />
-        <h2 className="font-semibold">Ask Priority AI</h2>
-        <span className="ml-auto text-xs text-gray-500">Natural Language Query</span>
+      <div className="p-4 border-b border-gray-200 flex items-center gap-2">
+        <div className="w-8 h-8 bg-[#3B37E6] rounded-lg flex items-center justify-center">
+          <Sparkles className="w-4 h-4 text-white" />
+        </div>
+        <div>
+          <h2 className="font-semibold text-[#16213D]">Ask Priority AI</h2>
+          <p className="text-xs text-gray-500">Natural Language Query</p>
+        </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8FAFC]">
         {messages.length === 0 && (
           <div className="text-center py-8">
-            <Sparkles className="w-12 h-12 text-purple-400/50 mx-auto mb-4" />
-            <p className="text-gray-400 mb-4">Ask me anything about your business</p>
-            <div className="space-y-2">
+            <div className="w-16 h-16 bg-[#F3F6FF] rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="w-8 h-8 text-[#3B37E6]" />
+            </div>
+            <p className="text-gray-600 mb-4 font-medium">Ask me anything about your business</p>
+            <div className="space-y-2 max-w-md mx-auto">
               {suggestedQueries.map((query, i) => (
                 <button
                   key={i}
                   onClick={() => setInput(query)}
-                  className="block w-full text-left px-4 py-2 text-sm bg-gray-800/50 hover:bg-gray-800 rounded-lg text-gray-300 transition-colors"
+                  className="block w-full text-left px-4 py-3 text-sm bg-white hover:bg-[#F3F6FF] rounded-xl text-gray-700 transition-colors border border-gray-200 hover:border-[#3B37E6]/30"
                 >
                   "{query}"
                 </button>
@@ -222,18 +227,18 @@ export function NLQChat({ compact = false }: NLQChatProps) {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[85%] rounded-xl px-4 py-3 ${
+              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                 message.role === 'user'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-800 text-gray-100'
+                  ? 'bg-[#3B37E6] text-white'
+                  : 'bg-white text-[#16213D] border border-gray-200 shadow-sm'
               }`}
             >
-              <div className="text-sm whitespace-pre-wrap prose prose-invert prose-sm max-w-none">
+              <div className="text-sm whitespace-pre-wrap">
                 {message.content.split('\n').map((line, i) => (
-                  <p key={i} className={line.startsWith('|') ? 'font-mono text-xs' : ''}>
+                  <p key={i} className={`${line.startsWith('|') ? 'font-mono text-xs' : ''} ${i > 0 ? 'mt-1' : ''}`}>
                     {line.includes('**')
                       ? line.split('**').map((part, j) =>
-                          j % 2 === 1 ? <strong key={j}>{part}</strong> : part
+                          j % 2 === 1 ? <strong key={j} className={message.role === 'user' ? 'text-white' : 'text-[#3B37E6]'}>{part}</strong> : part
                         )
                       : line
                     }
@@ -241,8 +246,8 @@ export function NLQChat({ compact = false }: NLQChatProps) {
                 ))}
               </div>
               {(message.data as { actionRequired?: boolean })?.actionRequired && (
-                <div className="mt-2 pt-2 border-t border-gray-700">
-                  <span className="inline-flex items-center gap-1 text-xs text-orange-400">
+                <div className="mt-3 pt-3 border-t border-gray-200">
+                  <span className="inline-flex items-center gap-1 text-xs text-orange-600 font-medium">
                     <AlertTriangle className="w-3 h-3" />
                     Action required - Check Agents tab
                   </span>
@@ -254,9 +259,9 @@ export function NLQChat({ compact = false }: NLQChatProps) {
 
         {isTyping && (
           <div className="flex justify-start">
-            <div className="bg-gray-800 rounded-xl px-4 py-3 flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin text-purple-400" />
-              <span className="text-sm text-gray-400">Analyzing your data...</span>
+            <div className="bg-white rounded-2xl px-4 py-3 flex items-center gap-2 border border-gray-200 shadow-sm">
+              <Loader2 className="w-4 h-4 animate-spin text-[#3B37E6]" />
+              <span className="text-sm text-gray-500">Analyzing your data...</span>
             </div>
           </div>
         )}
@@ -265,21 +270,21 @@ export function NLQChat({ compact = false }: NLQChatProps) {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSubmit} className="p-4 border-t border-gray-800">
+      <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200 bg-white rounded-b-xl">
         <div className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about inventory, cash flow, production..."
-            className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+            placeholder="Ask about inventory, cash flow, store performance..."
+            className="flex-1 bg-[#F8FAFC] border border-gray-200 rounded-full px-5 py-3 text-[#16213D] placeholder-gray-400 focus:outline-none focus:border-[#3B37E6] focus:ring-2 focus:ring-[#3B37E6]/20 transition-all"
           />
           <button
             type="submit"
             disabled={!input.trim() || isTyping}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg px-4 py-2 transition-colors"
+            className="bg-[#3B37E6] hover:bg-[#5753F0] disabled:bg-gray-300 disabled:cursor-not-allowed rounded-full px-5 py-3 transition-colors"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5 text-white" />
           </button>
         </div>
       </form>

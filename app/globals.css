@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
+/* Priority Software Brand Colors */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --priority-primary: #3B37E6;
+  --priority-primary-light: #5753F0;
+  --priority-primary-dark: #2D2AB8;
+  --priority-accent: #F3F6FF;
+  --priority-dark: #16213D;
+  --priority-text: #808080;
+  --priority-text-dark: #333333;
+  --priority-success: #10B981;
+  --priority-warning: #F59E0B;
+  --priority-danger: #EF4444;
+
+  --background: #FFFFFF;
+  --foreground: #16213D;
+  --surface: #F8FAFC;
+  --border: #E2E8F0;
 }
 
 @theme inline {
@@ -12,15 +26,76 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Priority Button Styles */
+.btn-primary {
+  background: var(--priority-primary);
+  color: white;
+  border-radius: 60px;
+  padding: 12px 24px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--priority-primary-light);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--priority-accent);
+  color: var(--priority-dark);
+  border-radius: 60px;
+  padding: 12px 24px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #E8EDFF;
+}
+
+/* Priority Card Styles */
+.priority-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.priority-card-hover:hover {
+  box-shadow: 0 4px 12px rgba(59, 55, 230, 0.1);
+  border-color: var(--priority-primary);
+}
+
+/* Gradient text for headings */
+.priority-gradient-text {
+  background: linear-gradient(135deg, var(--priority-primary) 0%, #6366F1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }

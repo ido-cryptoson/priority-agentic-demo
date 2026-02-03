@@ -17,7 +17,7 @@ export function MetricsBar({ metrics }: { metrics: Metrics }) {
   const cards = [
     {
       label: 'Monthly Revenue',
-      value: `$${(metrics.totalRevenue / 1000000).toFixed(1)}M`,
+      value: `₪${(metrics.totalRevenue / 1000000).toFixed(1)}M`,
       change: metrics.revenueGrowth,
       icon: DollarSign,
       positive: true,
@@ -32,14 +32,14 @@ export function MetricsBar({ metrics }: { metrics: Metrics }) {
     },
     {
       label: 'AR at Risk',
-      value: `$${(metrics.arAtRisk / 1000).toFixed(0)}K`,
+      value: `₪${(metrics.arAtRisk / 1000).toFixed(0)}K`,
       change: 15,
       icon: AlertTriangle,
       positive: false,
       warning: true,
     },
     {
-      label: 'On-Time Delivery',
+      label: 'Store Fulfillment',
       value: `${metrics.onTimeDelivery}%`,
       change: 2,
       icon: Truck,
@@ -48,29 +48,29 @@ export function MetricsBar({ metrics }: { metrics: Metrics }) {
   ];
 
   return (
-    <div className="border-b border-gray-800 bg-gray-900/20 py-4">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="bg-white border-b border-gray-200 py-4">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`p-4 rounded-lg border ${
+              className={`p-4 rounded-xl border transition-all ${
                 card.warning
-                  ? 'bg-orange-500/10 border-orange-500/30'
-                  : 'bg-gray-800/50 border-gray-700/50'
+                  ? 'bg-orange-50 border-orange-200'
+                  : 'bg-white border-gray-200 hover:border-[#3B37E6]/30 hover:shadow-sm'
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-gray-400">{card.label}</span>
-                <card.icon className={`w-4 h-4 ${card.warning ? 'text-orange-400' : 'text-gray-500'}`} />
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">{card.label}</span>
+                <card.icon className={`w-4 h-4 ${card.warning ? 'text-orange-500' : 'text-gray-400'}`} />
               </div>
               <div className="flex items-end justify-between">
-                <span className={`text-2xl font-bold ${card.warning ? 'text-orange-300' : 'text-white'}`}>
+                <span className={`text-2xl font-bold ${card.warning ? 'text-orange-600' : 'text-[#16213D]'}`}>
                   {card.value}
                 </span>
                 <span
-                  className={`flex items-center text-xs ${
-                    card.positive ? 'text-green-400' : 'text-red-400'
+                  className={`flex items-center text-xs font-medium ${
+                    card.positive ? 'text-emerald-600' : 'text-red-500'
                   }`}
                 >
                   {card.positive ? (
