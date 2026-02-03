@@ -223,7 +223,9 @@ export const dashboardMetrics = {
 // Company info for display
 export const companyInfo = {
   name: 'Saar Ltd.',
+  dba: 'Outsiders Israel',
   brand: 'Columbia Sportswear Israel',
+  logo: 'https://www.outsiders.co.il/wp-content/uploads/2023/10/outsiders_logo_grey.png',
   industry: 'Apparel & Footwear Retail',
   stores: 52,
   posStations: 64,

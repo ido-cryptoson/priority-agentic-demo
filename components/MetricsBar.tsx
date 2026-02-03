@@ -48,24 +48,24 @@ export function MetricsBar({ metrics }: { metrics: Metrics }) {
   ];
 
   return (
-    <div className="bg-white border-b border-gray-200 py-4">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="bg-white border-b border-gray-200 py-3">
+      <div className="w-full px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`p-4 rounded-xl border transition-all ${
+              className={`p-3 rounded-lg border transition-all ${
                 card.warning
                   ? 'bg-orange-50 border-orange-200'
                   : 'bg-white border-gray-200 hover:border-[#3B37E6]/30 hover:shadow-sm'
               }`}
             >
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-1">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">{card.label}</span>
-                <card.icon className={`w-4 h-4 ${card.warning ? 'text-orange-500' : 'text-gray-400'}`} />
+                <card.icon className={`w-3.5 h-3.5 ${card.warning ? 'text-orange-500' : 'text-gray-400'}`} />
               </div>
               <div className="flex items-end justify-between">
-                <span className={`text-2xl font-bold ${card.warning ? 'text-orange-600' : 'text-[#16213D]'}`}>
+                <span className={`text-xl font-bold ${card.warning ? 'text-orange-600' : 'text-[#16213D]'}`}>
                   {card.value}
                 </span>
                 <span
