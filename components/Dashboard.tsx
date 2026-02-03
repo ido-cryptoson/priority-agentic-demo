@@ -5,7 +5,7 @@ import { NLQChat } from './NLQChat';
 import { AgentPanel } from './AgentPanel';
 import { NetworkMap } from './NetworkMap';
 import { MetricsBar } from './MetricsBar';
-import { dashboardMetrics } from '@/lib/mockData';
+import { dashboardMetrics, companyInfo } from '@/lib/mockData';
 import { Bot, MessageSquare, Globe, LayoutDashboard } from 'lucide-react';
 
 type TabType = 'overview' | 'chat' | 'agents' | 'network';
@@ -27,14 +27,14 @@ export function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Bot className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-sky-400 rounded-lg flex items-center justify-center font-bold text-white text-sm">
+                C
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-sky-300 bg-clip-text text-transparent">
                   Priority Intelligence
                 </h1>
-                <p className="text-xs text-gray-400">TechFlow Manufacturing - Agentic ERP</p>
+                <p className="text-xs text-gray-400">{companyInfo.name} ({companyInfo.brand}) - {companyInfo.stores} Stores</p>
               </div>
             </div>
             <div className="flex items-center gap-2">

@@ -9,94 +9,113 @@ interface NLQChatProps {
   compact?: boolean;
 }
 
-// Pre-defined responses for demo (fast, reliable)
+// Pre-defined responses for demo (fast, reliable) - Saar Ltd / Columbia Sportswear
 const demoResponses: Record<string, { content: string; data?: Record<string, unknown> }> = {
   'worry': {
-    content: `Based on my analysis of your current operations, here are the **top priorities for this week**:
+    content: `Based on my analysis across your **52 Columbia stores**, here are the **top priorities for this week**:
 
 **Critical Issues:**
-1. **Component XR-7 Stockout Risk** - Current stock: 450 units, burn rate: 80/day. Will stockout in ~5.6 days. Production order for SmartSensor Pro requires 700 units.
+1. **Bugaboo Winter Jacket Stockout Risk** - Only 120 units left across all stores, selling 25/day. Will stockout in **4.8 days** - right before peak winter season!
+   - Tel Aviv Dizengoff: 8 units (CRITICAL)
+   - Jerusalem Malha: 5 units (CRITICAL)
 
-2. **AR at Risk: $182,000** - 3 customers are in high-risk payment status:
-   - Gadget World LLC: $52K overdue (65 avg days)
-   - ConsumerTech Ltd: $89K outstanding (58 avg days)
-   - Future Electronics: $41K outstanding (55 avg days)
+2. **AR at Risk: ₪239,000** - 4 B2B accounts overdue:
+   - Outdoor Adventures Tours: ₪67K (72 avg days - HIGH RISK)
+   - Extreme Sports IL: ₪78K (68 avg days)
+   - Nature & Parks Authority: ₪128K (62 avg days)
 
-3. **Production Efficiency** - Line 2 running at 85% vs target 92%. Recommend maintenance review.
+3. **Ashdod Port Congestion** - Your next shipment may be delayed 2-3 days. Network intelligence from 89 Priority customers detected this issue.
 
 **Recommended Actions:**
-- Approve the pending PO for Component XR-7 (I've already drafted it)
-- Send payment reminders to high-risk accounts
-- Schedule maintenance for Production Line 2`,
+- Approve the pending PO for Winter Jackets from EU Warehouse (I've already drafted it)
+- Send payment reminders to high-risk B2B accounts
+- Consider expedited shipping for critical inventory`,
     data: { priority: 'high', actionRequired: true }
   },
   'stockout': {
-    content: `**Inventory Alert: 2 Components at Risk**
+    content: `**Inventory Alert: 2 Products at Risk Across 52 Stores**
 
-| Component | Current | Daily Use | Days Left | Status |
-|-----------|---------|-----------|-----------|--------|
-| **XR-7 Microcontroller** | 450 | 80 | 5.6 | CRITICAL |
-| CAP-220 Capacitor | 1,200 | 150 | 8.0 | Warning |
+| Product | Current | Daily Sales | Days Left | Status |
+|---------|---------|-------------|-----------|--------|
+| **Bugaboo Interchange Jacket** | 120 | 25 | 4.8 | CRITICAL |
+| Newton Ridge Hiking Boots | 85 | 12 | 7.0 | Warning |
+
+**Store-Level Breakdown (Jackets):**
+| Store | Stock | Status |
+|-------|-------|--------|
+| Tel Aviv Dizengoff | 8 | CRITICAL |
+| Jerusalem Malha | 5 | CRITICAL |
+| Herzliya Marina | 12 | Low |
+| Haifa Grand Canyon | 18 | Low |
 
 **Impact Analysis:**
-- XR-7 is needed for the SmartSensor Pro production run (600 units scheduled)
-- Current stock insufficient - need 700 units, have 450
+- Winter Season Collection Restock needs 800 jackets
+- Dizengoff Center Store Opening needs 100 more
+- Estimated lost sales if stockout: **₪85,000**
 
-**Agent Recommendation:**
-I've already analyzed suppliers and drafted a PO for ReliableSupply Co. Check the Agents tab to approve.`,
+**Agent Action:**
+I've analyzed 4 suppliers and drafted a PO for EU Warehouse (Netherlands) - 7 day delivery, $24,000 for 500 units. Check the Agents tab to approve.`,
     data: { criticalItems: 2 }
   },
   'cash': {
-    content: `**Cash Flow Analysis**
+    content: `**Cash Flow Analysis - Saar Ltd.**
 
-**Current Position:** $1,250,000
+**Current Position:** ₪3,200,000
 
-**Scenario: If top 3 late payers don't pay this month:**
+**Scenario: If high-risk B2B accounts don't pay this month:**
 
-| Customer | Outstanding | Probability of Delay |
-|----------|-------------|---------------------|
-| ConsumerTech Ltd | $89,000 | 72% |
-| Gadget World LLC | $52,000 | 85% |
-| Future Electronics | $41,000 | 68% |
+| Customer | Outstanding | Avg Days | Risk |
+|----------|-------------|----------|------|
+| Outdoor Adventures Tours | ₪67,000 | 72 days | HIGH |
+| Extreme Sports IL | ₪78,000 | 68 days | HIGH |
+| Nature & Parks Authority | ₪128,000 | 62 days | MEDIUM |
+| Decathlon Israel | ₪89,000 | 55 days | MEDIUM |
 
-**Potential Impact:** -$182,000
+**Potential Impact:** -₪362,000
 
-**Projected Cash Position:** $1,068,000
+**Projected Cash Position:** ₪2,838,000
 
-**Risk Level:** Medium - Still above minimum operating threshold of $800K
+**Risk Level:** Low - Well above operating threshold. But trend is concerning.
 
-**Recommendation:** Initiate early payment discount (2%) for ConsumerTech Ltd - they're most likely to respond positively.`,
-    data: { cashImpact: -182000 }
+**Recommendation:**
+- Initiate 2% early payment discount for Outdoor Adventures Tours (₪1,340 discount)
+- Consider reducing their credit limit from ₪80K to ₪50K
+- IDF Logistics always pays - ₪185K expected within 45 days`,
+    data: { cashImpact: -362000 }
   },
   'production': {
-    content: `**Production Efficiency Report - Last 30 Days**
+    content: `**Store Performance Report - Last 30 Days**
 
-| Shift | Efficiency | vs Target | Trend |
-|-------|------------|-----------|-------|
-| Day Shift (A) | 94% | +2% | Stable |
-| Day Shift (B) | 91% | -1% | Declining |
-| Night Shift | 78% | -14% | Critical |
+| Region | Store Fill Rate | Sales/SqM | Trend |
+|--------|-----------------|-----------|-------|
+| Tel Aviv Metro | 94% | ₪2,450 | Stable |
+| Jerusalem | 89% | ₪2,120 | Improving |
+| Haifa & North | 91% | ₪1,980 | Stable |
+| Eilat & South | 97% | ₪2,890 | Strong |
 
-**Root Cause Analysis (Night Shift):**
-- Equipment downtime: 45 mins avg per shift
-- Material staging delays: 23 mins avg
-- Staffing gap: 2 positions unfilled
+**eCommerce Performance:**
+- columbia.co.il: 12,400 orders (+18% MoM)
+- Salesforce Commerce Cloud integration: 99.2% uptime
 
-**Recommendations:**
-1. Priority maintenance on CNC Machine #3 (scheduled downtime: 4hrs)
-2. Pre-stage materials during day shift handoff
-3. Approve overtime for current night crew until positions filled`,
-    data: { overallEfficiency: 85 }
+**Top Selling Items This Week:**
+1. Bugaboo Interchange Jacket (running low!)
+2. Newton Ridge Hiking Boots
+3. Tech Trail Fleece Pullover
+
+**Recommendation:**
+- Restock Dizengoff & Malha stores urgently
+- Holiday campaign inventory looks good for eCommerce`,
+    data: { overallEfficiency: 94 }
   },
   'default': {
-    content: `I can help you understand your business operations. Try asking me:
+    content: `I can help you manage your **52 Columbia stores** and **2 eCommerce sites**. Try asking me:
 
 - "What should I worry about this week?"
 - "Which products are at risk of stockout?"
 - "What's our cash position if late payers don't pay?"
-- "Show me production efficiency by shift"
+- "Show me store performance by region"
 
-I have access to your inventory, customers, suppliers, and production data in real-time.`,
+I have real-time access to inventory across all stores, B2B customer accounts, supplier data, and POS transactions.`,
   }
 };
 
@@ -164,8 +183,8 @@ export function NLQChat({ compact = false }: NLQChatProps) {
 
   const suggestedQueries = [
     "What should I worry about this week?",
-    "Which products are at risk of stockout?",
-    "What's our cash position if late payers don't pay?",
+    "Which products are at risk of stockout across our 52 stores?",
+    "What's our cash position with B2B accounts?",
   ];
 
   return (
